@@ -4,7 +4,7 @@ import { EmailValidator, AccountModel, AddAccountModel, AddAccount } from './sig
 
 const makeEmailValidator = (): EmailValidator => {
   class EmailValidatorStub implements EmailValidator {
-    isvalid (email: string): boolean {
+    isValid (email: string): boolean {
       return true
     }
   }
@@ -133,7 +133,7 @@ describe('Signup Controller', () => {
   test('Should return 400 if an invalid email is provided', async () => {
     const { sut, emailValidatorStub } = makeSut()
 
-    jest.spyOn(emailValidatorStub, 'isvalid').mockReturnValueOnce(false)
+    jest.spyOn(emailValidatorStub, 'isValid').mockReturnValueOnce(false)
 
     const httpRequest = {
       body: {
@@ -153,7 +153,7 @@ describe('Signup Controller', () => {
   test('Should call EmailValidator with correct email', async () => {
     const { sut, emailValidatorStub } = makeSut()
 
-    const isValidSpy = jest.spyOn(emailValidatorStub, 'isvalid')
+    const isValidSpy = jest.spyOn(emailValidatorStub, 'isValid')
 
     const httpRequest = {
       body: {
@@ -172,7 +172,7 @@ describe('Signup Controller', () => {
   test('Should return 500 if EmailValidar throws', async () => {
     const { sut, emailValidatorStub } = makeSut()
 
-    jest.spyOn(emailValidatorStub, 'isvalid').mockImplementationOnce(() => {
+    jest.spyOn(emailValidatorStub, 'isValid').mockImplementationOnce(() => {
       throw new Error()
     })
 
