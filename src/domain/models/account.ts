@@ -4,3 +4,7 @@ export interface AccountModel {
   email: string
   password: string
 }
+
+export namespace AccountModel {
+  export type Result = boolean
+}
