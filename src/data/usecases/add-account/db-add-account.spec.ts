@@ -19,14 +19,8 @@ const makeEncrypter = (): Encrypter => {
 
 const makeAddAccountRepository = (): AddAccountRepository => {
   class AddAccountRepositoryStub implements AddAccountRepositoryStub {
-    async add (accountData: AddAccountModel): Promise<AccountModel> {
-      const fakeAccount = {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'hashed_password'
-      }
-      return await new Promise((resolve) => { resolve(fakeAccount) })
+    async add (accountData: AddAccountModel): Promise<AccountModel.Result> {
+      return await new Promise((resolve) => { resolve(true) })
     }
   }
 
@@ -122,13 +116,6 @@ describe('Db AddAccount UseCase', () => {
 
     const account = await sut.add(accountData)
 
-    expect(account).toEqual(
-      {
-        id: 'valid_id',
-        name: 'valid_name',
-        email: 'valid_email@email.com',
-        password: 'hashed_password'
-      }
-    )
+    expect(account).toEqual(true)
   })
 })
