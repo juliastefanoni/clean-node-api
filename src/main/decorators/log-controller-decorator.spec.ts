@@ -6,7 +6,7 @@ import { AccountModel } from '../../domain/models/account'
 
 const makeLogErrorRepository = (): LogErrorRepository => {
   class LogErrorRepositoryStub implements LogErrorRepository {
-    async log (stack: string): Promise<void> {
+    async logError (stack: string): Promise<void> {
       await new Promise(resolve => { resolve(null) })
     }
   }
@@ -95,7 +95,7 @@ describe('Log Decorator', () => {
       resolve(makeFakeServerError())
     }))
 
-    const logSpy = jest.spyOn(logErrorRepositoryStub, 'log')
+    const logSpy = jest.spyOn(logErrorRepositoryStub, 'logError')
 
     await sut.handle(makeFakeRequest())
 
