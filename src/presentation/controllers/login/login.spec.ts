@@ -1,5 +1,5 @@
 import { LoginController } from './login'
-import { badRequest, serverError, unauthorized } from '../../helpers'
+import { badRequest, ok, serverError, unauthorized } from '../../helpers'
 import { InvalidParamError, MissingParamError } from '../../errors'
 import { HttpRequest, EmailValidator, Authentication } from './login-protocols'
 
@@ -137,11 +137,10 @@ describe('Login Controller', () => {
   })
 
   test('Should return 200 if valid credentials are provided', async () => {
-    const { sut, authenticationStub } = makeSut()
-    jest.spyOn(authenticationStub, 'auth').mockReturnValueOnce(Promise.resolve(null))
+    const { sut } = makeSut()
 
     const httpResponse = await sut.handle(makeFakeRequest())
 
-    expect(httpResponse).toEqual(unauthorized())
+    expect(httpResponse).toEqual(ok({ accessToken: 'any_token' }))
   })
 })
